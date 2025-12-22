@@ -39,7 +39,7 @@ public class MovieControllerIntegrationTest {
 	@MockBean
     private MovieRepository movieRepository;
 
-	private static final String AWARDS_URL_MAPPING = "/movies/awards";
+	private static final String AWARDS_URL_MAPPING = "/movies/producers";
 	
 	@Test // Cenário 1
 	public void only1ProducerMinAndOnly1ProducerMaxTest() throws Exception {
