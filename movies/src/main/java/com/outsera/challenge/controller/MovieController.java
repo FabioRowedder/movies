@@ -16,7 +16,7 @@ public class MovieController {
 	@Autowired
 	private MovieService movieService;
 	
-	@GetMapping("/awards")
+	@GetMapping("/producers")
 	public ResponseEntity<MoviesOutDTO> getPrizeRanges() {
 		MoviesOutDTO moviesOutDTO = movieService.getAwardsIntervals();
 		

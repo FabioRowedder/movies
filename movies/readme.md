@@ -39,5 +39,5 @@ Para compilação e build do projeto via terminal, deve ser aberta uma sessão d
 Após o build da aplicação, na pasta raiz do projeto será criada uma pasta target onde estará o executável da aplicação e demais arquivos.
 Para executar a aplicação via linha de comando: abrir uma sessão de terminal na pasta target e executar o comando: *java -jar movies-0.0.1-SNAPSHOT.jar*
 
-Foi desenvolvido um endpoint */movies/awards* para busca dos dados dos produtores conforme indicado no item 3 do PDF de enunciado.
-CURL para request via linha de comando: *curl --location 'http://localhost:8080/movies/awards'*
+Foi desenvolvido um endpoint */movies/producers* para busca dos dados dos produtores conforme indicado no item 3 do PDF de enunciado.
+CURL para request via linha de comando: *curl --location 'http://localhost:8080/movies/producers'*
