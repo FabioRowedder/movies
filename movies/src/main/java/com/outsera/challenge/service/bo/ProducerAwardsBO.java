@@ -44,6 +44,14 @@ public class ProducerAwardsBO implements Comparable<ProducerAwardsBO> {
 		return yearIntervalsMappedByCount.firstKey();
 	}
 	
+	public Integer getHighestInterval() {
+		return yearIntervalsMappedByCount.lastKey();
+	}
+	
+	public List<AwardIntervalBO> getByInterval(Integer interval) {
+		return this.yearIntervalsMappedByCount.get(interval);
+	}
+	
 	private void storeInterval(AwardIntervalBO awardIntervalBO) {
 		Integer intervalCount = awardIntervalBO.getIntervalCount();
 

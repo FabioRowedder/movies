@@ -13,20 +13,17 @@ Para compilação, build ou execução de testes automatizados o ambiente dever�
 ## Objetivo do sistema
 O sistema deverá ler um arquivo CSV com dados de filmes que serão utilizados para modelagem de dados e implementação das regras de negócio.
 Como principal função o sistema deve ser capaz de fornecer o produtor com maior intervalo entre dois prêmios consecutivos, e o que obteve dois prêmios mais rápido, seguindo as especificações de resposta da página 2 do PDF de enunciado.
-Em outras palavras, deve(m) ser retornado(s) o(s) produtor(es) que levou/levaram menos tempo para receber um segundo prêmio. Também deve(m) ser retornado(s) o(s) produtor(es) que levou/levaram mais tempo para receber um segundo prêmio.
-Importante observar que em quaisquer desses cenários podem ser retornado mais de 1 produtor, pois pode haver casos em que mais de 1 produtor levou o mesmo tempo para receber o segundo prêmio. 
 
 
 ## Configurações do ambiente de execução
-Tendo sido fornecido um arquivo CSV com dados de filme (Movielist.csv), este arquivo precisa estar acessível à aplicação no sistema de arquivos em uma pasta à qual o usuário de execução do sistema tenha acesso de leitura.
-Originalmente essa pasta está definida como */opt* (/opt/Movielist.csv). Caso se deseje alterar o local ou o próprio arquivo, o novo local/arquivo pode ser configurado via arquivo de properties do projeto (*application.properties*), através da chave *outsera.challenge.csv.location*.
-A forma atual do arquivo fornecido foi adotada como padrão para recuperação dos dados contidos no arquivo, a saber:
+Tendo sido fornecido um arquivo CSV com dados de filmes (Movielist.csv), este arquivo foi colocado no módulo de resources da aplicação.
+A forma atual do arquivo fornecido foi adotada como padrão para recuperação dos dados contidos, a saber:
 - Caractere separador de campos: ';'
 - Expressão regular para separação dos nomes dos produtores de filmes: ",|\\\sand\\\s" 
 
 Caso seja necessário, é possível alterar a expressão regular usada para separação de nomes de produtores através da chave *outsera.challenge.csv.producer.names.splitter.regex* no arquivo *application.properties*, no projeto.
 
-Internamente está sendo usado uma instância de banco de dados H2 para armazenamento dos dados lidos do arquivo CSV fornecido.
+Internamente está sendo usada uma instância de banco de dados H2 para armazenamento dos dados lidos do arquivo CSV fornecido.
 O console do banco H2 estará disponível após a aplicação ser iniciada. URL do H2: *http://localhost:8080/h2*. É necessário informar apenas usuário e senha (admin/admin) para ter acesso ao console do H2, demais campos têm valores default.
 Uma vez no console, a tabela criada para armazenar os dados dos filmes é a *MOVIE*.
 

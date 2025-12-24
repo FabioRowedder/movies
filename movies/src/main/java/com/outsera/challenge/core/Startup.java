@@ -1,13 +1,16 @@
 package com.outsera.challenge.core;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.outsera.challenge.converter.MovieConverter;
 import com.outsera.challenge.core.bean.MovieCsvBean;
@@ -29,32 +32,31 @@ public class Startup {
 	@Autowired
 	private MovieConverter movieConverter;
 	
-	@Value("${outsera.challenge.csv.location}")
-	private String csvLocation;
-	
 	@PostConstruct
 	public void init() {
 		try {
 			List<MovieCsvBean> beans = getCsvBeans();
 			persistRecords(beans);
 			log.info("CSV file loaded.");
-		} catch (FileNotFoundException fnfe) {
-			log.error("CSV file not found on " + csvLocation);
 		} catch (Exception e) {
-			log.error("Generic error: " + e.getMessage());
+			log.error("Generic error on CSV loading: " + e.getMessage());
 		}
+	}
+	
+	private List<MovieCsvBean> getCsvBeans() throws IOException {
+        Reader reader = new InputStreamReader(
+        		new ClassPathResource("data/Movielist.csv").getInputStream(), StandardCharsets.UTF_8);
+
+        CsvToBean<MovieCsvBean> csvToBean = new CsvToBeanBuilder<MovieCsvBean>(reader)
+            .withType(MovieCsvBean.class)
+            .withSeparator(';')
+            .withIgnoreLeadingWhiteSpace(true)
+            .build();
+
+        return csvToBean.parse();
 	}
 	
 	private void persistRecords(List<MovieCsvBean> beans) {
 		movieRepository.saveAll(movieConverter.from(beans));
-	}
-	
-	private List<MovieCsvBean> getCsvBeans() throws FileNotFoundException {
-		return new CsvToBeanBuilder<MovieCsvBean>(
-				new FileReader(csvLocation))
-				.withType(MovieCsvBean.class)
-				.withSeparator(';')
-				.build()
-				.parse();	
 	}
 }
